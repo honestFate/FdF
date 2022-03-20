@@ -5,7 +5,7 @@ C = gcc
 C_FLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 
-SRCS =	fdf.c print_map.c color.c resize_map.c gnl/get_next_line.c gnl/get_next_line_utils.c
+SRCS =	fdf.c print_map.c color.c resize_map.c rotate_map.c gnl/get_next_line.c gnl/get_next_line_utils.c
 
 OBJ = $(patsubst %.c,%.o,$(SRCS))
 

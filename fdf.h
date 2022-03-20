@@ -50,5 +50,9 @@ void	ft_swap(double *x, double *y);
 double	f_part(double x);
 int	i_part(double x);
 void    ft_set_size(angl ***map, double line_len);
+void    ft_rotate_map(angl ***map, int angle, int ax);
+void    ft_set_to_center(angl ***map, float center);
+void	ft_print_simple_line(angl *start_point, angl *end_point, t_data_img *img, int color);
+void    to_isometric(angl ***map);
 
 #endif

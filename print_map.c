@@ -17,14 +17,9 @@ void	ft_swap(double *x, double *y)
 {
 	double	temp;
 
-	ft_putnbr_fd(*x, 1);
-	ft_putnbr_fd(*y, 1);
 	temp = *x;
 	*x = *y;
 	*y = temp;
-	ft_putnbr_fd(*x, 1);
-	ft_putnbr_fd(*y, 1);
-	ft_putendl_fd("", 1);
 }
 
 void	put_pixel_img(t_data_img *data, int x, int y, int color)
@@ -37,7 +32,7 @@ void	put_pixel_img(t_data_img *data, int x, int y, int color)
 
 void	ft_print_simple_line(angl *start_point, angl *end_point, t_data_img *img, int color)
 {
-	if (start_point->x == end_point->x)
+	if ((int)start_point->x == (int)end_point->x)
 	{
 		if (end_point->y < start_point->y)
 			ft_swap(&(start_point->y), &(end_point->y));
@@ -72,7 +67,7 @@ angl *angl_copy(angl *p)
 
 void	ft_print_line(angl *start, angl *end, t_data_img *img, int color)
 {
-	int		p;
+	//int		p;
 	int		dx;
 	int		dy;
 	double	grad;
@@ -80,7 +75,6 @@ void	ft_print_line(angl *start, angl *end, t_data_img *img, int color)
 	angl *start_point;
 	angl *end_point;
 
-	ft_putendl_fd("line", 1);
 	start_point = angl_copy(start);
 	end_point = angl_copy(end);
 	if (end_point->x > start_point->x)
@@ -95,47 +89,50 @@ void	ft_print_line(angl *start, angl *end, t_data_img *img, int color)
 		ft_print_simple_line(start_point, end_point, img, color);
 	else if (dy < dx)
 	{
+		grad = (double)dy / (double)dx;
 		if (end_point->x < start_point->x)
 		{
 			ft_swap(&(start_point->x), &(end_point->x));
 			ft_swap(&(start_point->y), &(end_point->y));
 		}
-		grad = (double)(dy / dx);
+		if(end_point->y < start_point->y)
+			grad = -grad;
 		temp = start_point->y + grad;
 		put_pixel_img(img, start_point->x, start_point->y, color);
-		p = start_point->x + 1;
-		while (p < end_point->x)
+        start_point->x = start_point->x + 1;
+		while (start_point->x < end_point->x)
 		{
-			put_pixel_img(img, start_point->x, i_part(temp), create_trgb((int)(255 - f_part(temp) * 255), get_r(color), get_g(color), get_b(color)));
-			put_pixel_img(img, start_point->x, i_part(temp) + 1, create_trgb((int)(f_part(temp) * 255), get_r(color), get_g(color), get_b(color)));
+			put_pixel_img(img, start_point->x, i_part(temp), create_trgb((int)(f_part(temp) * 255), get_r(color), get_g(color), get_b(color)));
+			put_pixel_img(img, start_point->x, i_part(temp) + 1, create_trgb(255 - (int)(f_part(temp) * 255), get_r(color), get_g(color), get_b(color)));
 			temp += grad;
-			p++;
+            (start_point->x)++;
 		}
 		put_pixel_img(img, end_point->x, end_point->y, color);
 	}
 	else
 	{
+		grad = (double)dx / (double)dy;
 		if (end_point->y < start_point->y)
 		{
 			ft_swap(&(start_point->x), &(end_point->x));
 			ft_swap(&(start_point->y), &(end_point->y));
 		}
-		grad = (double)(dx / dy);
+		if(end_point->x < start_point->x)
+			grad = -grad;
 		temp = start_point->x + grad;
 		put_pixel_img(img, start_point->x, start_point->y, color);
-		p = start_point->y + 1;
-		while (p < end_point->y)
+        start_point->y = start_point->y + 1;
+		while (start_point->y < end_point->y)
 		{
-			put_pixel_img(img, start_point->x, i_part(temp), create_trgb((int)(255 - f_part(temp) * 255), get_r(color), get_g(color), get_b(color)));
-			put_pixel_img(img, start_point->x, i_part(temp) + 1, create_trgb((int)(f_part(temp) * 255), get_r(color), get_g(color), get_b(color)));
+			put_pixel_img(img, i_part(temp), start_point->y, create_trgb((int)(f_part(temp) * 255), get_r(color), get_g(color), get_b(color)));
+			put_pixel_img(img, i_part(temp) + 1, start_point->y, create_trgb(255 - (int)(f_part(temp) * 255), get_r(color), get_g(color), get_b(color)));
 			temp += grad;
-			p++;
+            (start_point->y)++;
 		}
 		put_pixel_img(img, end_point->x, end_point->y, color);
 	}
 	free(start_point);
 	free(end_point);
-	ft_putendl_fd("end line", 1);
 }
 
 void    ft_print_map(angl ***map, t_data_img *img)
@@ -146,27 +143,17 @@ void    ft_print_map(angl ***map, t_data_img *img)
 
 	color = create_trgb(0, 255, 255, 255);
     i = 0;
-	ft_putendl_fd("start", 1);
     while (map[i] != NULL)
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			ft_putnbr_fd(map[i][j]->x, 1);
-			ft_putstr_fd(" ", 1);
-			ft_putnbr_fd(map[i][j]->y, 1);
-			ft_putstr_fd("  ", 1);
 			if (map[i][j + 1])
 				ft_print_line(map[i][j], map[i][j + 1], img, color);
 			if (map[i + 1] != NULL)
-			{
-				ft_putendl_fd("true", 1);
-				ft_putnbr_fd((int)map[i], 1);
 				ft_print_line(map[i][j], map[i + 1][j], img, color);
-			}
 			j++;
 		}
-		ft_putendl_fd("", 1);
 		i++;
 	}
 }

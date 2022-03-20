@@ -28,21 +28,14 @@ void    ft_set_size(angl ***map, double line_len)
     i = 0;
     while (map[i])
 	{
-		ft_putendl_fd("n", 1);
-		ft_putnbr_fd((int)map[i], 1);
 		j = 0;
-		while (map[i][j])
+		while (map[i][j] != NULL)
 		{
-			ft_putnbr_fd(i, 1);
-			ft_putstr_fd(" ", 1);
-			ft_putnbr_fd(j, 1);
-			ft_putstr_fd("  ", 1);
 			map[i][j]->x *= line_len;
             map[i][j]->y *= line_len;
             map[i][j]->z *= line_len;
 			j++;
 		}
-		ft_putendl_fd("l", 1);
 		i++;
 	}
 }
