@@ -37,6 +37,13 @@ typedef struct	s_data {
 	int		endian;
 }				t_data_img;
 
+typedef struct	s_img {
+    void    *mlx_ptr;
+    void    *win_ptr;
+    t_data_img *img;
+    angl    ***map;
+}				t_img;
+
 int	create_trgb(int t, int r, int g, int b);
 int	get_t(int trgb);
 int	get_r(int trgb);
@@ -51,8 +58,10 @@ double	f_part(double x);
 int	i_part(double x);
 void    ft_set_size(angl ***map, double line_len);
 void    ft_rotate_map(angl ***map, int angle, int ax);
-void    ft_set_to_center(angl ***map, float center);
+void    ft_set_to_point(angl ***map, float x, float y, int sign);
 void	ft_print_simple_line(angl *start_point, angl *end_point, t_data_img *img, int color);
 void    to_isometric(angl ***map);
+void    to_decart(angl ***map);
+t_point	*ft_get_center(angl ***map);
 
 #endif

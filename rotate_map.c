@@ -62,10 +62,33 @@ void    to_isometric(angl ***map)
 		while (map[i][j])
 		{
             iso_x = map[i][j]->x - map[i][j]->y;
-            iso_y = (map[i][j]->x + map[i][j]->y) / 2;
+            iso_y = ((map[i][j]->x + map[i][j]->y) / 2) - map[i][j]->z;
 			map[i][j]->x = iso_x;
             map[i][j]->y = iso_y;
-            printf("map[i][j]->y = %f\n", map[i][j]->y);
+			j++;
+		}
+		i++;
+	}
+}
+
+void    to_decart(angl ***map)
+{
+    int i;
+    int j;
+    int dcr_x;
+    int dcr_y;
+
+    i = 0;
+    while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+            dcr_x = (2 * map[i][j]->y + map[i][j]->x) / 2;
+            map[i][j]->y -= map[i][j]->z;
+            dcr_y = (2 * map[i][j]->y - map[i][j]->x) / 2;
+			map[i][j]->x = dcr_x;
+            map[i][j]->y = dcr_y;
 			j++;
 		}
 		i++;

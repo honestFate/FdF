@@ -26,6 +26,8 @@ void	put_pixel_img(t_data_img *data, int x, int y, int color)
 {
 	char	*dst;
 
+	if (x > 699 || y > 699 || x < 0 || y < 0)
+		return ;
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
@@ -67,7 +69,6 @@ angl *angl_copy(angl *p)
 
 void	ft_print_line(angl *start, angl *end, t_data_img *img, int color)
 {
-	//int		p;
 	int		dx;
 	int		dy;
 	double	grad;

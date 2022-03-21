@@ -6,7 +6,7 @@
 /*   By: ndillon <ndillon@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:28:02 by ndillon           #+#    #+#             */
-/*   Updated: 2021/10/16 13:00:46 by ndillon          ###   ########.fr       */
+/*   Updated: 2022/03/21 20:28:26 by ndillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static int	ft_arr_loc(char const *s, char c, char **arr)
 		if (!arr[word_count++])
 			return (ft_free_on_err(arr, word_count));
 	}
-	arr[word_count] = malloc(sizeof(char));
 	arr[word_count] = NULL;
 	return (1);
 }

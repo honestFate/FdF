@@ -1,22 +1,31 @@
 #include "fdf.h"
 
-angl	*ft_get_center(angl ***map)
+t_point	*ft_get_center(angl ***map)
 {
 	int 	i;
     int 	j;
-	angl	*center;
+	t_point	*center;
 
     i = 0;
 	j = 0;
-	center = (angl *)malloc(sizeof(angl));
+	center = (t_point *)malloc(sizeof(t_point));
     while (map[i])
 		i++;
 	i--;
 	while (map[i][j])
 		j++;
 	j--;
-	center->x = map[i][j]->x / 2;
-	center->y = map[i][j]->y / 2;
+	if (map[0][0]->x * map[0][0]->y < map[i][j]->x * map[i][j]->y)
+	{
+		center->x = map[0][0]->x + ((map[i][j]->x - map[0][0]->x) / 2);
+		center->y = map[0][0]->y + ((map[i][j]->y - map[0][0]->y) / 2);
+		printf("center - %lf %lf\n", center->x, center->y);
+	}
+	else
+	{
+		center->x = map[i][j]->x + ((map[0][0]->x - map[i][j]->x) / 2);
+		center->y = map[i][j]->y + ((map[0][0]->y - map[i][j]->y) / 2);
+	}
 	return (center);
 }
 
@@ -34,25 +43,6 @@ void    ft_set_size(angl ***map, double line_len)
 			map[i][j]->x *= line_len;
             map[i][j]->y *= line_len;
             map[i][j]->z *= line_len;
-			j++;
-		}
-		i++;
-	}
-}
-
-void    ft_set_to_center(angl ***map, float center)
-{
-    int i;
-    int j;
-
-    i = 0;
-    while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			map[i][j]->x -= center;
-            map[i][j]->y -= center;
 			j++;
 		}
 		i++;
