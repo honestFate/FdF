@@ -6,14 +6,14 @@
 /*   By: ndillon <ndillon@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 16:22:09 by ndillon           #+#    #+#             */
-/*   Updated: 2021/12/22 16:23:18 by ndillon          ###   ########.fr       */
+/*   Updated: 2022/03/23 18:57:01 by ndillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
+# define BUFFER_SIZE 1
 # endif
 # include <unistd.h>
 # include <stdlib.h>
